@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media API</title>
-    {% load static %}
+    <title>{% block title %}My Social Media API{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
@@ -12,21 +11,22 @@
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'account_logout' %}">Logout</a></li>
-                {% else %}
-                    <li><a href="{% url 'account_login' %}">Login</a></li>
-                    <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-                {% endif %}
+                <li><a href="/admin/">Admin</a></li>
+                <li><a href="/api/accounts/">Accounts API</a></li>
+                <li><a href="/api/notifications/">Notifications API</a></li>
+                <li><a href="/api/posts/">Posts API</a></li>
+                <li><a href="/accounts/">Accounts</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
         {% block content %}
         {% endblock %}
     </main>
+
     <footer>
-        <p>&copy; 2025 Social Media API</p>
+        <p>&copy; 2025 My Social Media API</p>
     </footer>
 </body>
 </html>

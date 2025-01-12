@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 
+{% block title %}Home{% endblock %}
+
 {% block content %}
-<h1>Welcome to Social Media API</h1>
-<p>This is a simple API for managing posts, users, and notifications.</p>
+<h1>Welcome to My Social Media API</h1>
+<p>Here are the paths you can access:</p>
+<ul>
+    <li><a href="{% url 'home' %}">Home</a>: This page</li>
+    <li><a href="/admin/">Admin</a>: Access the Django admin interface</li>
+    <li><a href="/api/accounts/">Accounts API</a>: View and manage user accounts via API</li>
+    <li><a href="/api/notifications/">Notifications API</a>: View and manage notifications via API</li>
+    <li><a href="/api/posts/">Posts API</a>: View and manage posts via API</li>
+    <li><a href="/accounts/">Accounts</a>: Access the accounts section</li>
+    <li><a href="/static/path/to/static/file">Static Files</a>: Access static files</li>
+    <li><a href="/path/to/other/files">Other Files</a>: Access other files</li>
+</ul>
 {% endblock %}
