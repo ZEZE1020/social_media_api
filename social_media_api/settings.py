@@ -31,7 +31,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['https://social-media-api-a5m3.onrender.com']
+ALLOWED_HOSTS = ['social-media-api-a5m3.onrender.com']
 
 
 # Application definition
