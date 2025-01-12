@@ -8,6 +8,8 @@ from rest_framework import status
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404
+from .models import CustomUser, Follow, Post
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
@@ -43,6 +45,22 @@ class UserUpdateView(UpdateView):
     template_name = 'accounts/user_update.html'
     fields = ['username', 'email', 'bio', 'profile_picture']
     success_url = '/'
+
+
+
+def user_profile(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    posts = Post.objects.filter(user=user)
+    followers = Follow.objects.filter(following=user)
+    following = Follow.objects.filter(follower=user)
+    context = {
+        'user': user,
+        'posts': posts,
+        'followers': followers,
+        'following': following,
+    }
+    return render(request, 'accounts/profile.html', context)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
