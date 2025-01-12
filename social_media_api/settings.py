@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'posts',
     'accounts',
     'notifications',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -54,9 +57,29 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'social_media_api.urls'
+
+#Authentication settings
+AUTHENTICATION_BACKENDS = ( 
+    'django.contrib.auth.backends.ModelBackend', 
+    'allauth.account.auth_backends.AuthenticationBackend', 
+    ) 
+
+SITE_ID = 1
+ # URL configuration 
+LOGIN_REDIRECT_URL = '/' 
+LOGOUT_REDIRECT_URL = '/' 
+# Email Verification 
+ACCOUNT_EMAIL_VERIFICATION = 'none' 
+ACCOUNT_EMAIL_REQUIRED = True
+
+# Allauth settings
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email' 
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
 
 TEMPLATES = [
     {
