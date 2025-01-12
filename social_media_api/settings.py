@@ -13,6 +13,8 @@ from decouple import config
 import os 
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
+
 
 load_dotenv()
 
@@ -107,16 +109,7 @@ WSGI_APPLICATION = 'social_media_api.wsgi.application'
 
 # settings.py
 
-DATABASES = { 
-    'default': { 
-        'ENGINE': 'django.db.backends.postgresql', 
-        'NAME': os.getenv('DATABASE_NAME'), 
-        'USER': os.getenv('DATABASE_USER'), 
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'), 
-        'HOST': os.getenv('DATABASE_HOST'), 
-        'PORT': os.getenv('DATABASE_PORT'), 
-    } 
-}
+DATABASES = { 'default': dj_database_url.config(conn_max_age=600) }
 
 
 
