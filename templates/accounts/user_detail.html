@@ -1,0 +1,28 @@
+<!-- templates/accounts/user_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ user.username }}</h1>
+<img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+<p>{{ user.bio }}</p>
+<h2>Posts</h2>
+<ul>
+    {% for post in user.posts.all %}
+    <li>
+        <a href="{% url 'post-detail' post.id %}">{{ post.content }}</a>
+    </li>
+    {% endfor %}
+</ul>
+<h2>Followers</h2>
+<ul>
+    {% for follower in user.followers.all %}
+    <li>{{ follower.follower.username }}</li>
+    {% endfor %}
+</ul>
+<h2>Following</h2>
+<ul>
+    {% for following in user.following.all %}
+    <li>{{ following.following.username }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

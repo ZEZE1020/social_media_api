@@ -1,0 +1,17 @@
+<!-- templates/posts/post_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Posts</h1>
+<ul>
+    {% for post in posts %}
+    <li>
+        <h2>{{ post.content }}</h2>
+        <p>by {{ post.author.username }} on {{ post.timestamp }}</p>
+        {% if post.media %}
+        <img src="{{ post.media }}" alt="Media">
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

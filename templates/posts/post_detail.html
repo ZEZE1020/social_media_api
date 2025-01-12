@@ -1,0 +1,11 @@
+<!-- templates/posts/post_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ post.content }}</h1>
+<p>by {{ post.author.username }} on {{ post.timestamp }}</p>
+{% if post.media %}
+<img src="{{ post.media }}" alt="Media">
+{% endif %}
+<p>{{ post.content }}</p>
+{% endblock %}

@@ -9,6 +9,9 @@ from rest_framework import status
 from django.contrib.auth import get_user_model
 from .models import Follow
 from .serializers import FollowSerializer
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from .models import CustomUser
 
 User = get_user_model()
 # Create your views here.
@@ -45,3 +48,26 @@ def unfollow_user(request, user_id):
         return Response({'detail': 'You are not following this user.'}, status=status.HTTP_400_BAD_REQUEST)
     except User.DoesNotExist:
         return Response({'detail': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class UserListView(ListView):
+    model = CustomUser
+    template_name = 'accounts/user_list.html'
+    context_object_name = 'users'
+
+class UserDetailView(DetailView):
+    model = CustomUser
+    template_name = 'accounts/user_detail.html'
+    context_object_name = 'user'
+
+class UserCreateView(CreateView):
+    model = CustomUser
+    template_name = 'accounts/user_create.html'
+    fields = ['username', 'email', 'bio', 'profile_picture']
+    success_url = reverse_lazy('user-list')
+
+class UserUpdateView(UpdateView):
+    model = CustomUser
+    template_name = 'accounts/user_update.html'
+    fields = ['username', 'email', 'bio', 'profile_picture']
+    success_url = reverse_lazy('user-list')
