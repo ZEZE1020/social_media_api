@@ -77,7 +77,7 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/' 
 LOGOUT_REDIRECT_URL = '/' 
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
+
 # Email Verification 
 ACCOUNT_EMAIL_VERIFICATION = 'none' 
 ACCOUNT_EMAIL_REQUIRED = False
@@ -91,8 +91,8 @@ EMAIL_HOST_PASSWORD = 'your_email_password'
 
 
 # Allauth settings
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email' 
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_AUTHENTICATION_METHOD = 'username' 
+#ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 
 TEMPLATES = [
