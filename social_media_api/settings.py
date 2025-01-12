@@ -112,7 +112,7 @@ WSGI_APPLICATION = 'social_media_api.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
+        default='postgresql://postgres:postgres@internal_host:5432/socialmediaapi',
         conn_max_age=600
     )
 }
