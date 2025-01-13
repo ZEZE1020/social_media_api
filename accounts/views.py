@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from .models import CustomUser, Follow, Post
