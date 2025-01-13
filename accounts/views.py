@@ -13,11 +13,17 @@ from django.shortcuts import render, get_object_or_404
 from .models import CustomUser, Follow, Post
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.shortcuts import render
-from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import logout
+
 
 def home(request):
     return render(request, 'home.html')
+
+
+
+def accounts_home(request):
+    return redirect('login')  # Redirects to the login page
 
 
 def home(request):
@@ -71,7 +77,7 @@ def user_profile(request, user_id):
         'followers': followers,
         'following': following,
     }
-    return render(request, 'accounts/profile.html', context)
+    return render(request, 'accounts/profile.html', {'user': user})
 
 def login_view(request):
     form = AuthenticationForm(data=request.POST or None)
@@ -80,14 +86,16 @@ def login_view(request):
         login(request, user)
         next_url = request.GET('next', 'home')
         return redirect('home')
-    
     return render(request, 'login.html', {'form': form})
 
 
-def logout_view(request): 
-    if request.method == 'POST': 
-        logout(request) 
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
         return redirect('home')
+    else:
+        return redirect('home')  # Redirect to home if not POST request
+
 
 
 def signup(request):

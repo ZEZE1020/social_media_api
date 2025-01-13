@@ -31,7 +31,11 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['social-media-api-a5m3.onrender.com', '127.0.0.1:8000']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'social-media-api-a5m3.onrender.com', 
+]
 
 
 # Application definition
@@ -122,8 +126,8 @@ WSGI_APPLICATION = 'social_media_api.wsgi.application'
 # settings.py
 
 
-DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
+DATABASES = { 
+    'default': dj_database_url.config(default=config('DATABASE_URL')) 
 }
 
 

@@ -25,8 +25,7 @@ urlpatterns = [
     path('api/accounts/', include('accounts.urls')),
     path('api/notifications/', include('notifications.urls')),
     path('api/posts/', include('posts.urls')),
-    path('', home_view, name='home'),
-    path('accounts', include('allauth.urls'))
+    path('accounts', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
