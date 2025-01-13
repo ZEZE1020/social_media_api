@@ -13,6 +13,7 @@ from .models import CustomUser, Follow, Post
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.shortcuts import render
 from django.shortcuts import render
+from django import AuthenticationForm 
 
 def home(request):
     return render(request, 'home.html')
@@ -57,7 +58,7 @@ class UserUpdateView(UpdateView):
     success_url = '/'
 
 
-
+@login_required
 def user_profile(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
     posts = Post.objects.filter(user=user)
@@ -76,6 +77,7 @@ def login_view(request):
     if request.method == 'POST' and form.is_valid():
         user = form.get_user()
         login(request, user)
+        next_url = request.GET('next', 'home')
         return redirect('home')
     
     return render(request, 'login.html', {'form': form})
@@ -98,6 +100,7 @@ def signup(request):
         form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
+@login_required
 def user_update(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
     if request.method == 'POST':
@@ -109,6 +112,8 @@ def user_update(request, user_id):
         form = CustomUserChangeForm(instance=user)
     return render(request, 'user_update.html', {'form': form})
 
+
+@login_required
 def user_delete(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
     if request.method == 'POST':
