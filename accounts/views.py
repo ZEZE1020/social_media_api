@@ -12,6 +12,11 @@ from django.shortcuts import render, get_object_or_404
 from .models import CustomUser, Follow, Post
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.shortcuts import render
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'home.html')
+
 
 def home(request):
     return render(request, 'home.html')
@@ -65,7 +70,6 @@ def user_profile(request, user_id):
         'following': following,
     }
     return render(request, 'accounts/profile.html', context)
-
 
 def login_view(request):
     if request.method == 'POST': 
