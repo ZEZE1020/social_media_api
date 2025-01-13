@@ -13,7 +13,7 @@ from .models import CustomUser, Follow, Post
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.shortcuts import render
 from django.shortcuts import render
-from django import AuthenticationForm 
+from django.contrib.auth.forms import AuthenticationForm
 
 def home(request):
     return render(request, 'home.html')
