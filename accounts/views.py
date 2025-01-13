@@ -11,6 +11,11 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from .models import CustomUser, Follow, Post
 from .forms import CustomUserCreationForm, CustomUserChangeForm
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'home.html')
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
@@ -60,6 +65,24 @@ def user_profile(request, user_id):
         'following': following,
     }
     return render(request, 'accounts/profile.html', context)
+
+
+def login_view(request):
+    if request.method == 'POST': 
+        form = AuthenticationForm(data=request.POST) 
+        if form.is_valid():
+             user = form.get_user() 
+             login(request, user) 
+             return redirect('home') 
+        else: 
+            form = AuthenticationForm() 
+        return render(request, 'login.html', {'form': form})
+
+
+def logout_view(request): 
+    if request.method == 'POST': 
+        logout(request) 
+        return redirect('home')
 
 
 def signup(request):
