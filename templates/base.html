@@ -28,6 +28,19 @@
 
     <main>
         {% block content %}
+        {% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<h2>Sign Up</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
+{% endblock %}
+
         {% endblock %}
     </main>
 

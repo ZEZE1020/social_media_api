@@ -6,11 +6,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from .models import CustomUser, Follow, Post
-
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
@@ -60,6 +60,37 @@ def user_profile(request, user_id):
         'following': following,
     }
     return render(request, 'accounts/profile.html', context)
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'signup.html', {'form': form})
+
+def user_update(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile', user_id=user_id)
+    else:
+        form = CustomUserChangeForm(instance=user)
+    return render(request, 'user_update.html', {'form': form})
+
+def user_delete(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    if request.method == 'POST':
+        user.delete()
+        logout(request)
+        return redirect('home')
+    return render(request, 'user_delete.html', {'user': user})
 
 
 @api_view(['POST'])
