@@ -72,15 +72,13 @@ def user_profile(request, user_id):
     return render(request, 'accounts/profile.html', context)
 
 def login_view(request):
-    if request.method == 'POST': 
-        form = AuthenticationForm(data=request.POST) 
-        if form.is_valid():
-             user = form.get_user() 
-             login(request, user) 
-             return redirect('home') 
-        else: 
-            form = AuthenticationForm() 
-        return render(request, 'login.html', {'form': form})
+    form = AuthenticationForm(data=request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        user = form.get_user()
+        login(request, user)
+        return redirect('home')
+    
+    return render(request, 'login.html', {'form': form})
 
 
 def logout_view(request): 
