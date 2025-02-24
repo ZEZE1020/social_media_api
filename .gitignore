@@ -14,3 +14,4 @@ db.sqlite3
 
 # Other common ignores
 .vscode/
+.venv
